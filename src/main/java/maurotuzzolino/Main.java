@@ -61,8 +61,22 @@ public class Main {
                 .sorted(Comparator.comparingDouble(Product::getPrice).reversed())
                 .limit(3)
                 .collect(Collectors.toList());
-        
+
         top3ExpensiveProducts.forEach(p ->
                 System.out.println(p.getName() + " - €" + p.getPrice()));
+
+
+        System.out.println("\n========== Parte 4 ==========");
+        double averageOrderTotal = allOrders.stream()
+                .mapToDouble(order -> order.getProducts()
+                        .stream()
+                        .mapToDouble(Product::getPrice)
+                        .sum())
+                .average()
+                .orElse(0.0);
+        
+        System.out.println("Media valore ordine: €" + averageOrderTotal);
+
+
     }
 }
