@@ -74,9 +74,18 @@ public class Main {
                         .sum())
                 .average()
                 .orElse(0.0);
-        
+
         System.out.println("Media valore ordine: €" + averageOrderTotal);
 
 
+        System.out.println("\n========== Parte 5 ==========");
+        Map<String, Double> totalPriceByCategory = products.stream()
+                .collect(Collectors.groupingBy(
+                        Product::getCategory,
+                        Collectors.summingDouble(Product::getPrice)
+                ));
+        
+        totalPriceByCategory.forEach((category, total) ->
+                System.out.println("Categoria: " + category + " | Totale: €" + total));
     }
 }
